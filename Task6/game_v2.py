@@ -167,10 +167,6 @@ class Friend(Character):
         self.reward = reward
         super().__init__(name, description, conversation)
 
-    def compare_item(self, item: Item) -> bool:
-        "Compares if it's needed item"
-        return item.name == self.wanted_item
-
     def happier(self) -> None:
         "Sets happy status and changes conversation for new"
         self.conversation = self.advice

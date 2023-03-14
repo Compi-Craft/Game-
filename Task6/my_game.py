@@ -33,29 +33,29 @@ lumberjack = game_v2.Friend("Lumberjack", "Reclusive man living in the forest ho
 which I left in the forest", "axe", "This club is made of dark oak. \
 It is believed to be efficient against dark magic!", battle_club)
 wizard = game_v2.Friend("Castle Wizard", "Royal wizard, which used to help king himself!",
-"Welcome traveller. I heard legends about you. You need to know, that \
-our kingdom sank into darkness after Diablo stolen our wealth and king. \
+"Welcome traveller. I heard legends about you. \nYou need to know, that \
+our kingdom sank into darkness after Diablo stolen our wealth and king. \n\
 I want to trust you with a sword known as 'Dragon Slayer', but I need my \
-spell book to unleash it's full power. It was stollen by evil troll. \
+spell book to unleash it's full power. \nIt was stollen by evil troll. \
 Bring it to me, and you will recive the most \
 powerful sword in the world!", "spell book", "'Dragon slayer is yours \
-but Diablo is very powerfull. You will need to collect all possible resourses to \
+but Diablo is very powerfull. \nYou will need to collect all possible resourses to \
 defeat him, remember that! Good luck!", dragon_slayer)
 witch = game_v2.Friend("Swamp Witch", "Lonely witch living in the hut on the edge of swamp",
-"Hello traveller! Ralely someones is able to get here. Well as you are here, \
-i would be very glad if you bring me blinkroot. It is herb, which can \
-be founded in forest. You will recive magical reward for this, don't worry!",
+"Hello traveller! Ralely someones is able to get here. \nWell as you are here, \
+i would be very glad if you bring me blinkroot. \nIt is herb, which can \
+be founded in forest. \nYou will recive magical reward for this, don't worry!",
 "blinkroot", "This magical talisman will save you from dark swamp energy. Have a nice way!",
 talisman)
 merchant = game_v2.Friend("Merchant", "Regular merchant, came from other kingdom to trade",
-"Oh God! As soon as I got to the market I realized I lost my money!\n \
-Did I lose them in the swamps? If only someone would return them to me, I'd be very grateful...",
+"Hello warrior! Do you need better weapon? If yes, you can buy it just for few coins. \n\
+Sword, used by knights of neighboring kingdom, known for killing trolls!",
 'money sack', 'Thank God! Here you are \
 as I promised. \nSword from heart of our kingdom, carried by knights themself!',
 footman_sword)
 villager = game_v2.Friend("Villager", "Regular villager living in the kingdom",
 "Hello traveller! After Diablo invaded us, dark accidents started \
-to happen. Even today my sheep got lost in the field. I wish I could see \
+to happen. \nEven today my sheep got lost in the field. \nI wish I could see \
 it again", "sheep", "Thank you much! I'm not rich, so lantern is \
 the only I can give to you", lantern)
 
@@ -131,7 +131,25 @@ player = game_v2.Player(100, dagger, [], [dagger])
 
 DEAD = False
 current_loc = crossroad
+print("""You are hero from farland, who is seeking for adventures.
+You've heard, that in this kingdom evil dragon 'Diablo'
+stoled all kingdom wealth and king family and locked it down into his basement.
+Your task is to defeat Diablo and open the basement
 
+List of possible commands:
+1. North/South/West/East to move to nearby location
+2. Talk
+3. Take
+4. Give - to give item to friendly character
+5. Items - shows list of items
+6. Chweapon - changes weapon
+7. Fight
+8. Exit - to exit game
+
+You can enter commands in any case
+
+Good luck!!!
+""")
 while not DEAD:
     print()
     if current_loc == treasure:
@@ -145,7 +163,7 @@ while not DEAD:
         print()
         inhabitant.describe()
         if isinstance(inhabitant, game_v2.Enemy):
-            print(f"HP - {inhabitant.get_hp()}")
+            print(f"HP - {inhabitant.loose_hp(0)}")
             print(f"Damage - {inhabitant.deal_damage()}")
         print()
     item = current_loc.get_item()
@@ -234,7 +252,7 @@ while not DEAD:
         else:
             while True:
                 print(f"\nYour current HP - {player.drop_hp(0)}")
-                print(f"Enemy current HP - {inhabitant.get_hp()}")
+                print(f"Enemy current HP - {inhabitant.loose_hp(0)}")
                 print("\nEnter to continue")
                 choice = input(">>> ", )
                 print("\nEnemy attacks")
@@ -245,8 +263,8 @@ while not DEAD:
                     DEAD = True
                     break
                 print("You attack!")
-                inhabitant.loose_hp(player.get_weapon().get_damage())
-                if inhabitant.get_hp() == 0:
+                inhabitant.loose_hp(player.attack())
+                if inhabitant.loose_hp(0) == 0:
                     print("\nYou won!")
                     current_loc.set_character(None)
                     print(f"\n{inhabitant.get_name()} dropped item: \
