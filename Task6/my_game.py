@@ -38,7 +38,7 @@ our kingdom sank into darkness after Diablo stolen our wealth and king. \n\
 I want to trust you with a sword known as 'Dragon Slayer', but I need my \
 spell book to unleash it's full power. \nIt was stollen by evil troll. \
 Bring it to me, and you will recive the most \
-powerful sword in the world!", "spell book", "'Dragon slayer is yours \
+powerful sword in the world!", "spell book", "'Dragon Slayer' is yours \
 but Diablo is very powerfull. \nYou will need to collect all possible resourses to \
 defeat him, remember that! Good luck!", dragon_slayer)
 witch = game_v2.Friend("Swamp Witch", "Lonely witch living in the hut on the edge of swamp",
@@ -50,7 +50,7 @@ talisman)
 merchant = game_v2.Friend("Merchant", "Regular merchant, came from other kingdom to trade",
 "Hello warrior! Do you need better weapon? If yes, you can buy it just for few coins. \n\
 Sword, used by knights of neighboring kingdom, known for killing trolls!",
-'money sack', 'Thank God! Here you are \
+'money sack', 'Here you are \
 as I promised. \nSword from heart of our kingdom, carried by knights themself!',
 footman_sword)
 villager = game_v2.Friend("Villager", "Regular villager living in the kingdom",
@@ -77,7 +77,7 @@ swamp_monster, available=False, key=talisman,
 access_message="Dark energy don't let you in!")
 treasure = game_v2.Location("Treasure", "Treasure with all stolen kingdom wealth and king family",
 available=False, key=treasury_key, access_message="There is huge golden lock hanging")
-dragon_mountain = game_v2.Location("Diablo Mountain", "Homee of Diablo - legendary dragon",
+dragon_mountain = game_v2.Location("Diablo Mountain", "Home of Diablo - legendary dragon",
 dragon)
 
 crossroad.link_room(castle, "north")
@@ -131,7 +131,8 @@ player = game_v2.Player(100, dagger, [], [dagger])
 
 DEAD = False
 current_loc = crossroad
-print("""You are hero from farland, who is seeking for adventures.
+print("""
+You are hero from farland, who is seeking for adventures.
 You've heard, that in this kingdom evil dragon 'Diablo'
 stoled all kingdom wealth and king family and locked it down into his basement.
 Your task is to defeat Diablo and open the basement
