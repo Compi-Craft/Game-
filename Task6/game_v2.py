@@ -11,7 +11,11 @@ class Item:
 
     def describe(self) -> None:
         "Describes"
-        print(f"{self.name} is here - {self.description}")
+        print(f"{self.name.title()} is here - {self.description}")
+
+    def get_name(self) -> str:
+        "Gets name of item"
+        return self.name
 
 class Weapon(Item):
     "Weapon class"
@@ -51,7 +55,7 @@ class Player:
     def add_to_backpack(self, item: Item) -> None:
         "Adds item to backpack"
         self.backpack.append(item)
-        print(f"\nYou have put {item.name} to your backpack")
+        print(f"\nYou have put {item.name.title()} to your backpack")
 
     def del_from_backpack(self, item: Item) -> None:
         "Removes item from backpack"
@@ -60,14 +64,14 @@ class Player:
     def add_weapon(self, weapon: Weapon) -> None:
         "Adds weapon"
         self.equipment.append(weapon)
-        print(f"\nYou recived new weapon - {weapon.name}!")
+        print(f"\nYou recived new weapon - {weapon.name.title()}!")
         print(f"Damage - {weapon.damage}")
 
     def view_weapons(self) -> str:
         "Views weapons"
         info_str = "List of your weapons:\n"
         for weapon in self.equipment:
-            info_str += f"{weapon.name} - {weapon.description}. Damage: {weapon.damage}\n"
+            info_str += f"{weapon.name.title()} - {weapon.description}. Damage: {weapon.damage}\n"
         return info_str.rstrip()
 
     def view_items(self) -> str:
@@ -76,7 +80,7 @@ class Player:
             return "You have no items"
         info_str = "List of your items:\n"
         for item in self.backpack:
-            info_str += f"{item.name} - {item.description}\n"
+            info_str += f"{item.name.title()} - {item.description}\n"
         return info_str.rstrip()
 
     def recover(self) -> None:
@@ -86,6 +90,19 @@ class Player:
     def attack(self) -> int:
         "Returns damage player is dealing"
         return self.current_weapon.damage
+
+    def get_backpack(self) -> List[Item]:
+        "Gets player backpack"
+        return self.backpack
+
+    def get_weapons(self) -> List[Weapon]:
+        'Gets list of weapon'
+        return self.equipment
+
+    def set_weapon(self, new_weapon: Weapon) -> None:
+        "Sets weapon"
+        self.current_weapon = new_weapon
+        print(f"\nWeapon changed to {new_weapon.name.title()}")
 
 class Character:
     "Character class"
@@ -104,6 +121,10 @@ class Character:
         "Describes"
         print(f"""{self.name} is here!
 {self.description}""")
+
+    def get_name(self) -> str:
+        "Gets name"
+        return self.name
 
 class Enemy(Character):
     "Enemy class"
@@ -131,6 +152,10 @@ class Enemy(Character):
         "Returns holding item"
         return self.hold_item
 
+    def get_hp(self) -> int:
+        "Gets hp of character"
+        return self.health
+
 class Friend(Character):
     "Friend class"
 
@@ -149,17 +174,22 @@ class Friend(Character):
     def happier(self) -> None:
         "Sets happy status and changes conversation for new"
         self.conversation = self.advice
+        self.wanted_item = None
 
     def get_item(self) -> Item:
         "Gets holding item"
         return self.reward
+
+    def get_wanted(self) -> Item:
+        "Gets wanted item"
+        return self.wanted_item
 
 class Location:
     "Location class"
 
     def __init__(self, name: str, description: str,
         character: Character = None, item: Item = None, available: bool = True,
-        key: Item = None, accsess_message: str = None) -> None:
+        key: Item = None, access_message: str = None) -> None:
         "Does initialization"
         self.name = name
         self.description = description
@@ -168,7 +198,7 @@ class Location:
         self.item = item
         self.available = available
         self.key = key
-        self.accsess_message = accsess_message
+        self.access_message = access_message
 
     def get_details(self) -> str:
         "Gets details"
@@ -199,10 +229,26 @@ class Location:
         'Links room'
         self.linked_locs.update({room: direction})
 
-    def get_accsess_message(self) -> str:
+    def get_access_message(self) -> str:
         "Gets message"
-        return self.accsess_message
+        return self.access_message
 
     def get_aviability(self) -> bool:
         "Gets aviability"
         return self.available
+
+    def get_key(self) -> Item:
+        "Gets key to location"
+        return self.key
+
+    def set_aviability(self, status: bool) -> None:
+        "Sets aviability"
+        self.available = status
+
+    def set_item(self, item: Item) -> None:
+        "Sets item"
+        self.item = item
+
+    def set_character(self, character: Character) -> None:
+        "Sets new character"
+        self.character = character
